@@ -1,9 +1,7 @@
-import NavBar from "../components/navBar"
 
 export default function Home() {
   return (
-    <main className="flex h-screen min-h-screen flex-col justify-between">
-      <NavBar />
+    <main className="flex min-h-screen flex-col justify-between">
 
       <div className="h-full">
 
