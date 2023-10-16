@@ -2,7 +2,7 @@ import './globals.css'
 import { Roboto } from 'next/font/google'
 import NavBar from './components/navBar'
 
-const roboto = Roboto({ subsets: ['latin'], weight: '400' })
+const roboto = Roboto({ subsets: ['latin'], weight: '400'})
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <body className={roboto.className} style={{height:'100vh'}}>
         <NavBar/>
         {children}
       </body>

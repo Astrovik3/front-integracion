@@ -13,7 +13,7 @@ export default function RobotsPage() {
     return (
         <main>
             <div className='flex flex-row'>
-                <div className="flex flex-col p-3 bg-slate-200 min-w-fit w-64 h-screen">
+                <div className="flex flex-col p-3 bg-slate-200 min-w-fit w-64 h-full">
                     <div className="flex justify-between items-center">
                         <h2>ROBOTS:</h2>
                         <button 
