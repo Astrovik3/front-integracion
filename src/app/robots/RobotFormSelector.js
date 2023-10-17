@@ -1,20 +1,18 @@
 'use client'
 
 import React from 'react'
+import EditRobotForm from './EditRobotForm';
+import CreateRobotForm from './CreateRobotForm';
 
 function RobotFormSelector({editMode, selectedBot}) {
+
     return (
         <>
             {editMode && 
-            <div>
-                <h2>Edit Mode</h2>
-                <p>{selectedBot}</p>
-            </div>
+            <EditRobotForm selectedBot={selectedBot}/>
             }
             {!editMode &&
-            <div>
-                <h2>Create Mode</h2>
-            </div>
+            <CreateRobotForm/>
             }
         </>
     )
