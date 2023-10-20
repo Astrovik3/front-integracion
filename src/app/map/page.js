@@ -42,7 +42,7 @@ export default function Map() {
         </div>
       </div>
       <div className="relative h-full w-2/3 mt-8 mr-5 bg-slate-300">
-        <p>THE MAP!</p>
+        <p>THE MAP...</p>
         <div
           style={{
             position: 'absolute',
