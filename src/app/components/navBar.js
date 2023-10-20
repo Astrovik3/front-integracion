@@ -21,7 +21,7 @@ export default function NavBar() {
                 </Link>
               </li>
               <li>
-                <Link href="/mapa" className="block py-2 pl-3 pr-4 text-slate-400 rounded md:border-0 md:hover:text-white md:p-0">
+                <Link href="/map" className="block py-2 pl-3 pr-4 text-slate-400 rounded md:border-0 md:hover:text-white md:p-0">
                   Mapa
                 </Link>
               </li>
