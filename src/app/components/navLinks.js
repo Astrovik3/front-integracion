@@ -35,7 +35,7 @@ function NavLinks() {
         <li>
           <Link
             href="/map"
-            className={`${selectedPage == 'mapa' ? 'text-white' : 'text-slate-400'} block py-2 pl-3 pr-4 rounded md:bg-transparent hover:text-white md:p-0`}
+            className={`${selectedPage == 'map' ? 'text-white' : 'text-slate-400'} block py-2 pl-3 pr-4 rounded md:bg-transparent hover:text-white md:p-0`}
             onClick={() => setSelectedPage('mapa')}
           >
             Mapa
