@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import SearchRobot from "./searchRobot";
+import Image from 'next/image';
+import MapImg from "./mapaGrande.jpg";
 
 export default function Map() {
   //const [robotSelected, setRobotSelected] = useState('');
@@ -9,14 +11,14 @@ export default function Map() {
   const auto1 = [
     { x: 10, y: 10 },
     { x: 30, y: 25 },
-    { x: 55, y: 35 },
-    { x: 75, y: 80 },
-    { x: 90, y: 85 },
-    { x: 110, y: 100 },
-    { x: 140, y: 105 },
-    { x: 160, y: 145 },
-    { x: 185, y: 175 },
-    { x: 190, y: 195 }
+    { x: 30, y: 55 },
+    { x: 28, y: 80 },
+    { x: 28, y: 100 },
+    { x: 28, y: 140 },
+    { x: 28, y: 165 },
+    { x: 26, y: 185 },
+    { x: 24, y: 200 },
+    { x: 20, y: 220 }
   ];
 
   const [position, setPosition] = useState(0);
@@ -27,7 +29,7 @@ export default function Map() {
       }/*else{
         setPosition(0);
       }*/
-    }, 1000);
+    }, 1500);
 
     return () => {
       clearInterval(intervalId);
@@ -41,8 +43,13 @@ export default function Map() {
           <SearchRobot></SearchRobot>
         </div>
       </div>
-      <div className="relative h-full w-2/3 mt-8 mr-5 bg-slate-300">
-        <p>THE MAP!</p>
+      <div className="relative h-full w-2/3 mt-8 mr-5">
+        <Image
+          src={MapImg} 
+          alt = 'map'
+          width={919}
+          height={545}
+        />
         <div
           style={{
             position: 'absolute',

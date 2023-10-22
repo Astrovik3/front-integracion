@@ -8,25 +8,24 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 export default function Home() {
   const [rowData] = useState([
-    { make: "Toyota", model: "Celica", price: 35000, campoA: "blabla", campoB: 123 },
-    { make: "Ford", model: "Mondeo", price: 32000, campoA: "blabla", campoB: 123 },
-    { make: "Porsche", model: "Boxter", price: 72000, campoA: "blabla", campoB: 123 },
-    { make: "Ford", model: "Mondeo", price: 32000, campoA: "blabla", campoB: 123 },
-    { make: "Porsche", model: "Boxter", price: 72000, campoA: "blabla", campoB: 123 },
-    { make: "Ford", model: "Mondeo", price: 32000, campoA: "blabla", campoB: 123 },
-    { make: "Porsche", model: "Boxter", price: 72000, campoA: "blabla", campoB: 123 },
-    { make: "Ford", model: "Mondeo", price: 32000, campoA: "blabla", campoB: 123 },
-    { make: "Porsche", model: "Boxter", price: 72000, campoA: "blabla", campoB: 123 },
-    { make: "Ford", model: "Mondeo", price: 32000, campoA: "blabla", campoB: 123 },
-    { make: "Porsche", model: "Boxter", price: 72000, campoA: "blabla", campoB: 123 }
+    { id: "Toyota", name: "Robot 1", velocity: 35000, status: "blabla", battery: 123 },
+    { id: "Ford", name: "Robot 2", velocity: 32000, status: "blabla", battery: 123 },
+    { id: "Porsche", name: "Robot 3", velocity: 72000, status: "blabla", battery: 123 },
+    { id: "Ford", name: "Robot 4", velocity: 32000, status: "blabla", battery: 123 },
+    { id: "Porsche", name: "Robot 5", velocity: 72000, status: "blabla", battery: 123 },
+    { id: "Ford", name: "Robot 6", velocity: 32000, status: "blabla", battery: 123 },
+    { id: "Porsche", name: "Robot 7", velocity: 72000, status: "blabla", battery: 123 },
+    { id: "Ford", name: "Robot 8", velocity: 32000, status: "blabla", battery: 123 },
+    { id: "Porsche", name: "Robot 9", velocity: 72000, status: "blabla", battery: 123 },
+    { id: "Ford", name: "Robot 10", velocity: 32000, status: "blabla", battery: 123 }
   ]);
 
   const [columnDefs] = useState([
-    { field: "make" },
-    { field: "model" },
-    { field: "price" },
-    { field: "campoA" },
-    { field: "campoB" }
+    { field: "id" },
+    { field: "name" },
+    { field: "velocity" },
+    { field: "status" },
+    { field: "battery" }
   ]);
 
   const [robotSelected, setRobotSelected] = useState('');
