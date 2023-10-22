@@ -15,20 +15,20 @@ function SearchRobot({ }) {
 
       <div className='bg-gray-500 mt-2 p-5'>
         <form>
-          <label className='block text-white mb-2'>Texto campo A</label>
-          <input id='outlined-basic' type='text' name='smalla'/><br/><br/>
+          <label className='block text-white mb-1'>Id</label>
+          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='idRobot'/>
 
-          <label className='block text-white mb-2'>Texto campo B</label>
-          <input id='outlined-basic' type='text' name='smallb'/><br/><br/>
+          <label className='block text-white mb-1'>Name</label>
+          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='nameRobot'/>
 
-          <label className='block text-white mb-2'>Texto campo C</label>
-          <input id='outlined-basic' type='text' name='smallc'/><br/><br/>
+          <label className='block text-white mb-1'>Status</label>
+          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='statusRobot'/>
 
-          <label className='block text-white mb-2'>Texto campo D</label>
-          <input id='outlined-basic' type='text' name='smalld'/><br/><br/>
+          <label className='block text-white mb-1'>Battery</label>
+          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='batteryRobot'/>
 
-          <label className='block text-white mb-2'>Texto campo E</label>
-          <input id='outlined-basic' type='text' name='smalle'/><br/><br/>
+          <label className='block text-white mb-1'>Velocity</label>
+          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='velocityRobot'/>
 
           <button class='text-white rounded font-bold bg-blue-700 py-2 px-4'>
             Buscar
