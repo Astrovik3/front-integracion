@@ -9,17 +9,18 @@ function RobotList({ editMode, setMode, selectedBot, setSelectedBot, robotList }
   };
 
   return (
-    <ul className="divide-y min-w-fit w-fill bg-white overflow-auto">
+    <ul className="divide-y min-w-fit w-full bg-white">
         {robotList.map(robot =>
-            <li className={`${selectedBot === robot.name && editMode ? 'bg-gray-400' : 'bg-white'}`}>
+            <li key={robot.name} className={`${selectedBot === robot.name && editMode ? 'bg-[#C8C8C8]' : 'bg-[#F5F5F5]}'}`}>
             <button
                 className="w-full"
                 onClick={() => {
-                    handleBotSelection(robot.name)
-                    setMode(true)
+                    handleBotSelection(robot.name);
+                    setMode(false);
+                    setMode(true);
                 }}
             >
-                <h4 className="p-2 text-left">{robot.name}</h4>
+                <h6 className="p-2 text-left font-medium">{robot.name}</h6>
             </button>
             </li>
         )}

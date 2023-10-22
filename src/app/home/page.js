@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div className="flex w-full h-5/6">
       <div className="w-3/5 mt-8 mx-5">
-        <h1>ROBOTS</h1>
+        <h2>ROBOTS</h2>
         <div className="ag-theme-alpine h-5/6 mt-3">
           <AgGridReact
             rowData={rowData}

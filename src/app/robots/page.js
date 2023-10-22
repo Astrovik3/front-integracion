@@ -10,6 +10,7 @@ const robots = [
     { name: 'Robot 2' },
     { name: 'Robot 3' },
     { name: 'Robot 4' }
+
 ]
 
 export default function RobotsPage() {
@@ -19,34 +20,36 @@ export default function RobotsPage() {
     const [searchedRobots, setSearchedRobots] = useState(robots);
 
     return (
-        <main className='flex flex-row h-full'>
-            <div className="flex-1 p-3 bg-slate-200 min-w-fit w-1/4 h-full">
+        <main className='flex flex-row h-full overflow-auto'>
+            <div className="flex flex-col p-3 bg-[#ECECEC] min-w-fit w-1/4 h-full">
                 <div className="flex justify-between items-center">
                     <h2>ROBOTS:</h2>
                     <button 
-                        className="p-2 bg-white rounded-full"
+                        className="p-2 rounded-full bg-[#273B66] text-white"
                         disabled={!editMode}
                         onClick={()=> setMode(false)}
                     >Nuevo Bot</button>
                 </div>
-                <div className="my-3">
+                <div className="mb-4">
                     <div className='w-full flex flex-row bg-white rounded p-2'>
                         <input 
-                            type='text'  
+                            type='search'  
                             placeholder="Buscar..." 
-                            className='w-full' 
-                            onChange={e=> setSearchedRobots(robots.filter(bot=> bot.name.toLowerCase().startsWith(e.target.value.toLowerCase())))}
+                            className='w-full outline-none' 
+                            onChange={e=> setSearchedRobots(robots.filter(bot=> bot.name.toLowerCase().includes(e.target.value.toLowerCase())))}
                         />
                         <SearchIcon className='m-2'/>
                     </div>
                 </div>
-                <RobotList
-                    editMode={editMode} 
-                    setMode={setMode}
-                    selectedBot={selectedBot}
-                    setSelectedBot={setSelectedBot}
-                    robotList={searchedRobots}
-                />
+                <div className='bg-[#F5F5F5] pb-5 h-full overflow-auto border border-gray-200'>
+                    <RobotList
+                        editMode={editMode} 
+                        setMode={setMode}
+                        selectedBot={selectedBot}
+                        setSelectedBot={setSelectedBot}
+                        robotList={searchedRobots}
+                    />
+                </div>
             </div>
             <div className='flex w-full justify-center h-full items-center'>
                 <RobotFormSelector 
