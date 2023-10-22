@@ -16,21 +16,21 @@ function SearchRobot({ }) {
       <div className='bg-gray-500 mt-2 p-5'>
         <form>
           <label className='block text-white mb-1'>Id</label>
-          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='idRobot'/>
+          <input className='w-full h-8 mb-4 rounded outline outline-white p-2' id='outlined-basic' type='text' name='idRobot'/>
 
           <label className='block text-white mb-1'>Name</label>
-          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='nameRobot'/>
+          <input className='w-full h-8 mb-4 rounded outline outline-white p-2' id='outlined-basic' type='text' name='nameRobot'/>
 
           <label className='block text-white mb-1'>Status</label>
-          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='statusRobot'/>
+          <input className='w-full h-8 mb-4 rounded outline outline-white p-2' id='outlined-basic' type='text' name='statusRobot'/>
 
           <label className='block text-white mb-1'>Battery</label>
-          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='batteryRobot'/>
+          <input className='w-full h-8 mb-4 rounded outline outline-white p-2' id='outlined-basic' type='text' name='batteryRobot'/>
 
-          <label className='block text-white mb-1'>Velocity</label>
-          <input className='w-full h-8 mb-4 rounded' id='outlined-basic' type='text' name='velocityRobot'/>
+          <label className='block text-white mb-1'>Velocity (m/s)</label>
+          <input className='w-full h-8 mb-4 rounded outline outline-white p-2' id='outlined-basic' type='text' name='velocityRobot'/>
 
-          <button class='text-white rounded font-bold bg-blue-700 py-2 px-4'>
+          <button className='text-white rounded font-bold bg-blue-700 py-2 px-4'>
             Buscar
           </button>
         </form>
