@@ -18,7 +18,8 @@ export default function Map() {
     { x: 28, y: 165 },
     { x: 26, y: 185 },
     { x: 24, y: 200 },
-    { x: 20, y: 220 }
+    { x: 20, y: 220 },
+    { x: 166, y: 115}
   ];
 
   const [position, setPosition] = useState(0);

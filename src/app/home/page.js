@@ -5,6 +5,7 @@ import HomeRobotInfo from "./homeRobotInfo";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { getAllRobots } from "../networking/endpoints/robots";
 
 export default function Home() {
   const [rowData] = useState([
@@ -28,6 +29,12 @@ export default function Home() {
     { field: "battery" }
   ]);
 
+  const [data, setData] = useState();
+
+  const findData = async () => {
+    setData(await getAllRobots());
+  }
+
   const [robotSelected, setRobotSelected] = useState('');
   const onSelection = (event) => {
     setRobotSelected(event.api.getSelectedRows()[0]);
@@ -37,6 +44,7 @@ export default function Home() {
     <div className="flex w-full h-5/6">
       <div className="w-3/5 mt-8 mx-5">
         <h2>ROBOTS</h2>
+        <button onClick={findData}>TEST</button>
         <div className="ag-theme-alpine h-5/6 mt-3">
           <AgGridReact
             rowData={rowData}
