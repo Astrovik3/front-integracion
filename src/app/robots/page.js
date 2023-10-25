@@ -1,23 +1,33 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import RobotList from './RobotList';
 import RobotFormSelector from './RobotFormSelector';
 import SearchIcon from '@mui/icons-material/Search';
-
-const robots = [
-    { name: 'Robot 1' },
-    { name: 'Robot 2' },
-    { name: 'Robot 3' },
-    { name: 'Robot 4' }
-
-]
+import { getAllRobots } from '../networking/endpoints/robots';
 
 export default function RobotsPage() {
 
+    const [robots, setRobots] = useState([]);
     const [editMode, setMode] = useState(true);
-    const [selectedBot, setSelectedBot] = useState('Robot 1');
-    const [searchedRobots, setSearchedRobots] = useState(robots);
+    const [selectedBot, setSelectedBot] = useState(
+            {id: '', name: '', type: '', velocity: null, battery: ''}
+        );
+    const [searchedRobots, setSearchedRobots] = useState([]);
+
+    const [cont, setCont] = useState(0);
+    const handleCont = () => {
+        setCont(cont + 1);
+    };
+
+    useEffect(() => {
+        getAllRobots() 
+            .then(bots=> {
+                console.log(bots);
+                setRobots(bots);
+                setSearchedRobots(bots);
+            });
+    },[cont]);
 
     return (
         <main className='flex flex-row h-full overflow-auto'>
@@ -54,7 +64,10 @@ export default function RobotsPage() {
             <div className='flex w-full justify-center h-full items-center'>
                 <RobotFormSelector 
                     editMode={editMode} 
+                    setMode={setMode}
                     selectedBot={selectedBot}
+                    setSelectedBot={setSelectedBot}
+                    handleCont={handleCont}
                 />
             </div>
         </main>
