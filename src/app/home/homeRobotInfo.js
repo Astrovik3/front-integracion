@@ -16,19 +16,20 @@ function HomeRobotInfo({setRobotSelected}) {
           className='rounded-full'
         />
         <div className='flex flex-col justify-center content-center pl-5'>
-          <h1>Robot: {setRobotSelected.make}</h1>
-          <small className='text-gray-400'>Model: {setRobotSelected.model}</small>
-          <small className='text-gray-400'>Price: {setRobotSelected.price}</small>
+          <h1>Robot: {setRobotSelected.name}</h1>
+          <small className='text-gray-400'>Estado: {setRobotSelected.robotStatus}</small>
+          <small className='text-gray-400'>Batería: {setRobotSelected.battery}</small>
         </div>
       </div>
 
-      <div className='bg-gray-200 mt-5 p-5'>
-          <h1 className='text-center'>ROBOT 1</h1>
-          <p>Información A del robot</p>
-          <p>Información B del robot</p>
-          <p>Información C del robot</p>
-          <p>Información D del robot</p>
-          <p>Después esto se organiza bien cuando se tengan todos los campos definidos.</p>
+      <div className='bg-gray-300 mt-5 p-5'>
+          <h1 className='text-center'>INFORMACIÓN ROBOT</h1>
+          <p>Id del robot: {setRobotSelected.id}</p>
+          <p>Nombre del robot: {setRobotSelected.name}</p>
+          <p>Estado del robot: {setRobotSelected.robotStatus}</p>
+
+          <p>Velocidad del robot: {setRobotSelected.velocity} metros/segundos</p>
+          <p>Batería del robot: {setRobotSelected.battery}</p>
       </div>
     </div>
   )

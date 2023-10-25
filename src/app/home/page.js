@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeRobotInfo from "./homeRobotInfo";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
@@ -8,7 +8,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { getAllRobots } from "../networking/endpoints/robots";
 
 export default function Home() {
-  const [rowData] = useState([
+  /*const [rowData] = useState([
     { id: "Toyota", name: "Robot 1", velocity: 35000, status: "blabla", battery: 123 },
     { id: "Ford", name: "Robot 2", velocity: 32000, status: "blabla", battery: 123 },
     { id: "Porsche", name: "Robot 3", velocity: 72000, status: "blabla", battery: 123 },
@@ -19,35 +19,37 @@ export default function Home() {
     { id: "Ford", name: "Robot 8", velocity: 32000, status: "blabla", battery: 123 },
     { id: "Porsche", name: "Robot 9", velocity: 72000, status: "blabla", battery: 123 },
     { id: "Ford", name: "Robot 10", velocity: 32000, status: "blabla", battery: 123 }
-  ]);
+  ]);*/
 
   const [columnDefs] = useState([
     { field: "id" },
     { field: "name" },
     { field: "velocity" },
-    { field: "status" },
+    { field: "robotStatus" },
     { field: "battery" }
   ]);
 
   const [data, setData] = useState();
-
-  const findData = async () => {
-    setData(await getAllRobots());
-  }
 
   const [robotSelected, setRobotSelected] = useState('');
   const onSelection = (event) => {
     setRobotSelected(event.api.getSelectedRows()[0]);
   };
 
+  useEffect(() => {
+    const findData = async () => {
+      setData(await getAllRobots());
+    };
+    findData();
+  }, []);
+
   return (
     <div className="flex w-full h-5/6">
       <div className="w-3/5 mt-8 mx-5">
         <h2>ROBOTS</h2>
-        <button onClick={findData}>TEST</button>
         <div className="ag-theme-alpine h-5/6 mt-3">
           <AgGridReact
-            rowData={rowData}
+            rowData={data}
             columnDefs={columnDefs}
             rowSelection="multiple"
             onSelectionChanged={onSelection}
