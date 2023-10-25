@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import SearchRobot from "./searchRobot";
 import Image from 'next/image';
 import MapImg from "./mapaGrande.jpg";
+import { getAllRobots } from "../networking/endpoints/robots";
 
 export default function Map() {
-  //const [robotSelected, setRobotSelected] = useState('');
 
+  //LOS PARÁMETROS DE X E Y VAN A TENER QUE SER MODIFICADOS ACORDE AL TAMAÑO DEL MAPA...
+  //EL MAPA ES 2.4 VECES MÁS GRANDE QUE LAS MEDIDAS DEL MAPA QUE USA PEDRO, 342 x 218...
   const auto1 = [
     { x: 10, y: 10 },
     { x: 30, y: 25 },
@@ -22,20 +24,17 @@ export default function Map() {
     { x: 166, y: 115}
   ];
 
-  const [position, setPosition] = useState(0);
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if(position < auto1.length -1){
-        setPosition(position + 1);
-      }/*else{
-        setPosition(0);
-      }*/
-    }, 1500);
+  const [data, setData] = useState([]);
 
-    return () => {
-      clearInterval(intervalId);
+  useEffect(() => {
+    const findData = async () => {
+      setData(await getAllRobots());
     };
-  }, [position]);
+    findData();
+  }, []);
+
+  //Luego soluciono el tema del document undefined...
+  const contenedor = document.getElementById('contenedor');
 
   return (
     <div className="flex w-full h-5/6">
@@ -44,24 +43,28 @@ export default function Map() {
           <SearchRobot></SearchRobot>
         </div>
       </div>
-      <div className="relative h-full w-2/3 mt-8 mr-5">
-        <Image
-          src={MapImg} 
-          alt = 'map'
-          width={919}
-          height={545}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            right: auto1[position].x + 'px',
-            bottom: auto1[position].y + 'px',
-            width: '10px',
-            height: '10px',
-            background: 'red',
-            borderRadius: '50%',
-          }}
-        ></div>
+      <div className="flex relative h-full w-2/3 mt-8 mr-5 justify-center">
+        <div id="contenedor" className="relative" style={{width:821, height:545}}>
+          <Image
+            src={MapImg} 
+            alt = 'map'
+            width={821}
+            height={545}
+          />
+          {data.filter(x => x.x !== null).forEach((robot, index) => {
+            const divObjeto = document.createElement("div");
+            divObjeto.id = index;
+            divObjeto.style.position = 'absolute';
+            divObjeto.style.right = robot.x + 'px';
+            divObjeto.style.bottom = Math.abs(robot.y) + 'px';
+            divObjeto.style.width = '8px';
+            divObjeto.style.height = '8px';
+            divObjeto.style.background = 'red';
+            divObjeto.style.borderRadius = '50%';
+            contenedor.appendChild(divObjeto);
+          })
+          }
+        </div>
       </div>
     </div>
   )
