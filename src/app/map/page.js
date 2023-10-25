@@ -9,7 +9,8 @@ import { getAllRobots } from "../networking/endpoints/robots";
 export default function Map() {
 
   //LOS PARÁMETROS DE X E Y VAN A TENER QUE SER MODIFICADOS ACORDE AL TAMAÑO DEL MAPA...
-  //EL MAPA ES 2.4 VECES MÁS GRANDE QUE LAS MEDIDAS DEL MAPA QUE USA PEDRO, 342 x 218...
+  //EL MAPA ES 2.1 VECES MÁS GRANDE QUE LAS MEDIDAS DEL MAPA QUE USA PEDRO, 342 x 218...
+  //LOS X e Y QUE VENGAN DEL AUTO VAN A TENER QUE SER MULTIPLICADOS POR 2,1 PARA ENCAJAR BIEN...
   const auto1 = [
     { x: 10, y: 10 },
     { x: 30, y: 25 },
@@ -44,19 +45,19 @@ export default function Map() {
         </div>
       </div>
       <div className="flex relative h-full w-2/3 mt-8 mr-5 justify-center">
-        <div id="contenedor" className="relative" style={{width:821, height:545}}>
+        <div id="contenedor" className="relative" style={{width:719, height:458}}>
           <Image
             src={MapImg} 
             alt = 'map'
-            width={821}
-            height={545}
+            width={719}
+            height={458}
           />
           {data.filter(x => x.x !== null).forEach((robot, index) => {
             const divObjeto = document.createElement("div");
             divObjeto.id = index;
             divObjeto.style.position = 'absolute';
-            divObjeto.style.right = robot.x + 'px';
-            divObjeto.style.bottom = Math.abs(robot.y) + 'px';
+            divObjeto.style.left = robot.x * 2.1 + 'px';
+            divObjeto.style.top = Math.abs(robot.y) * 2.1 + 'px';
             divObjeto.style.width = '8px';
             divObjeto.style.height = '8px';
             divObjeto.style.background = 'red';
@@ -69,3 +70,4 @@ export default function Map() {
     </div>
   )
 }
+/** */
