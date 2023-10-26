@@ -29,13 +29,19 @@ export default function Map() {
 
   useEffect(() => {
     const findData = async () => {
-      setData(await getAllRobots());
-    };
-    findData();
-  }, []);
+      const contenedor = document.getElementById('contenedor');
+      while(contenedor.firstChild){
+        contenedor.removeChild(contenedor.firstChild);
+      }
 
-  //Luego soluciono el tema del document undefined...
-  const contenedor = document.getElementById('contenedor');
+      setData(await getAllRobots());
+      console.log("se ejecutó la llamada.");
+    };
+    const intervalId = setInterval(findData, 5000);
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, []);
 
   return (
     <div className="flex w-full h-5/6">
@@ -45,26 +51,30 @@ export default function Map() {
         </div>
       </div>
       <div className="flex relative h-full w-2/3 mt-8 mr-5 justify-center">
-        <div id="contenedor" className="relative" style={{width:719, height:458}}>
+        <div className="relative" style={{width:719, height:458}}>
           <Image
             src={MapImg} 
             alt = 'map'
             width={719}
             height={458}
           />
-          {data.filter(x => x.x !== null).forEach((robot, index) => {
-            const divObjeto = document.createElement("div");
-            divObjeto.id = index;
-            divObjeto.style.position = 'absolute';
-            divObjeto.style.left = robot.x * 2.1 + 'px';
-            divObjeto.style.top = Math.abs(robot.y) * 2.1 + 'px';
-            divObjeto.style.width = '8px';
-            divObjeto.style.height = '8px';
-            divObjeto.style.background = 'red';
-            divObjeto.style.borderRadius = '50%';
-            contenedor.appendChild(divObjeto);
-          })
-          }
+          <div id="contenedor">
+            {data.filter(x => x.x !== null).forEach((robot, index) => {
+              const divObjeto = document.createElement("div");
+              divObjeto.id = index;
+              divObjeto.style.position = 'absolute';
+              divObjeto.style.left = robot.x * 2.1 + 'px';
+              divObjeto.style.top = Math.abs(robot.y) * 2.1 + 'px'; //+ 2
+              divObjeto.style.width = '7px';
+              divObjeto.style.height = '7px';
+              divObjeto.style.background = 'orange';
+              divObjeto.style.borderRadius = '50%';
+              divObjeto.style.boxShadow = '0 0 5px yellow, 0 0 10px yellow, 0 0 20px yellow';
+              const contenedor = document.getElementById('contenedor');
+              contenedor.appendChild(divObjeto);
+            })
+            }
+          </div>
         </div>
       </div>
     </div>

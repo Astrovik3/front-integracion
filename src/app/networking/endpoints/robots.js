@@ -16,7 +16,6 @@ export const getAllRobots = async function () {
   })
   .then(res=> {
     if(res.ok) {
-      console.log(res);
       return res.json();
     }
     else throw new Error(JSON.stringify(res));
