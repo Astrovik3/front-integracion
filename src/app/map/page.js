@@ -43,6 +43,29 @@ export default function Map() {
     }
   }, []);
 
+  const setStatusBgColor = (robotStatus) => {
+    let color;
+    if(robotStatus == "RETURNING"){
+      color = "lightblue";
+    }else if(robotStatus == "BUSY"){
+      color = "orange";
+    }else{
+      color = "#66ff00";
+    }
+    return color;
+  };
+  const setStatusShadowColor = (robotStatus) => {
+    let shadow;
+    if(robotStatus == "RETURNING"){
+      shadow = "0 0 5px blue, 0 0 10px blue, 0 0 20px blue";
+    }else if(robotStatus == "BUSY"){
+      shadow = "0 0 5px yellow, 0 0 10px yellow, 0 0 20px yellow";
+    }else{
+      shadow = "0 0 5px green, 0 0 10px green, 0 0 20px green";
+    }
+    return shadow;
+  };
+
   return (
     <div className="flex w-full h-5/6">
       <div className="w-1/3 h-full mt-8 mx-5">
@@ -67,9 +90,9 @@ export default function Map() {
               divObjeto.style.top = Math.abs(robot.y) * 2.1 + 'px'; //+ 2
               divObjeto.style.width = '7px';
               divObjeto.style.height = '7px';
-              divObjeto.style.background = 'orange';
+              divObjeto.style.background = setStatusBgColor(robot.robotStatus);
               divObjeto.style.borderRadius = '50%';
-              divObjeto.style.boxShadow = '0 0 5px yellow, 0 0 10px yellow, 0 0 20px yellow';
+              divObjeto.style.boxShadow = setStatusShadowColor(robot.robotStatus);
               const contenedor = document.getElementById('contenedor');
               contenedor.appendChild(divObjeto);
             })
