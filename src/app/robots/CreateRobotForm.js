@@ -1,20 +1,47 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { postRobot } from '../networking/endpoints/robots';
 
-function CreateRobotForm() {
+function CreateRobotForm({handleCont, setMode}) {
 
     const [openAlert, setOpenAlert] = useState(false);
 
-    const [id, setId] = useState();
     const [name, setName] = useState('');
     const [type, setType] = useState('');
-    const [battery, setBattery] = useState();
-    const [velocity, setVelocity] = useState();
+    const [battery, setBattery] = useState(null);
+    const [velocity, setVelocity] = useState(null);
+
+    const [disabled, setDisabled] = useState(true);
+
+    function getNewRobot() {
+        return {
+            name: name,
+            type: type,
+            battery: battery,
+            velocity: velocity
+        };
+    }
+
+    const onClick = () => {
+        setDisabled(true);
+        const robot = getNewRobot();
+        postRobot(robot)
+            .then(res=> {
+                console.log(res);
+                setOpenAlert(true);
+                handleCont();
+                setMode(true);
+            });
+    }
+
+    useEffect(() => {
+        setDisabled(name === '' || type === '' || !battery || !velocity)
+    },[name, type, battery, velocity]);
 
     return (
         <div className='flex flex-col'>
@@ -39,9 +66,6 @@ function CreateRobotForm() {
                 </Alert>
             </Collapse>
 
-            <label className='block mb-3 font-[500]'>Id</label>
-            <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='idRobot' value={id} onChange={e=>{setId(e.target.value)}}/>
-
             <label className='block mb-3 font-[500]'>Name</label>
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='nameRobot' value={name} onChange={e=>{setName(e.target.value)}}/>
 
@@ -55,7 +79,13 @@ function CreateRobotForm() {
             <input className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='velocityRobot' value={velocity} onChange={e=>{setVelocity(e.target.value)}}/>
             
             <div className='flex'>
-            <button className='p-2 rounded bg-[#273B66] font-semibold text-white w-full' onClick={()=> setOpenAlert(true)}>Crear Robot</button>
+            <button 
+                className={`${disabled ? 'bg-gray-300' : 'bg-[#273B66]'} p-2 rounded font-semibold text-white w-full`}
+                disabled={disabled} 
+                onClick={onClick}
+            >
+                Crear Robot
+            </button>
             </div>
             
         </div>

@@ -9,19 +9,23 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { deleteRobot, updateRobot } from '../networking/endpoints/robots';
 
-function EditRobotForm({selectedBot}) {
+function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
 
     const [openModal, setOpenModal] = useState(false);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
     const [openAlert, setOpenAlert] = useState(false);
 
-    const [id, setId] = useState(3);
-    const [name, setName] = useState(selectedBot);
+    const [id, setId] = useState('');
+    const [name, setName] = useState('');
     const [type, setType] = useState('');
-    const [battery, setBattery] = useState(300);
-    const [velocity, setVelocity] = useState(2);
+    const [battery, setBattery] = useState('');
+    const [velocity, setVelocity] = useState(0);
+
+    const [disabled, setDisabled] = useState(true);
+    const [deleteDisabled, setDeleteDisabled] = useState(false);
 
     const style = {
         position: 'absolute',
@@ -36,8 +40,48 @@ function EditRobotForm({selectedBot}) {
     };
 
     useEffect(() => {
-        setName(selectedBot);
+        setId(selectedBot.id);
+        setName(selectedBot.name);
+        setType(selectedBot.type);
+        setBattery(parseFloat(selectedBot.battery));
+        setVelocity(selectedBot.velocity);
     },[selectedBot]);
+
+    useEffect(() => {
+        setDisabled(selectedBot.id === '' || (name === selectedBot.name && type === selectedBot.type && battery === selectedBot.battery && velocity === selectedBot.velocity));
+    },[name, type, battery, velocity]);
+
+    function getRobot() {
+        return {
+            id: id,
+            name: name,
+            type: type,
+            battery: battery,
+            velocity: velocity
+        };
+    }
+
+    const onSave = () => {
+        setDisabled(true);
+        setDeleteDisabled(true);
+        const robot = getRobot();
+        updateRobot(robot)
+            .then(res=> {
+                setOpenAlert(true)
+                handleCont();
+            });
+    }
+
+    const onDelete = () => {
+        setDeleteDisabled(true);
+        setDisabled(true);
+        deleteRobot(selectedBot)
+            .then(res => {
+                handleCloseModal();
+                handleCont();
+                setSelectedBot({id: '', name: '', type: '', velocity: null, battery: ''});
+            });
+    }
 
     return (
         <div className='flex flex-col'>
@@ -64,7 +108,7 @@ function EditRobotForm({selectedBot}) {
             </Collapse>
 
             <label className='block mb-3 font-[500]'>Id</label>
-            <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='idRobot' value={id} onChange={e=>{setId(e.target.value)}}/>
+            <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='idRobot' value={id} disabled={true}/>
 
             <label className='block mb-3 font-[500]'>Name</label>
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='nameRobot' value={name} onChange={e=>{setName(e.target.value)}}/>
@@ -79,8 +123,18 @@ function EditRobotForm({selectedBot}) {
             <input className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='velocityRobot' value={velocity} onChange={e=>{setVelocity(e.target.value)}}/>
             
             <div className='flex flex-row justify-between'>
-                <button className='p-2 rounded-l-lg bg-red-600 w-36 font-semibold text-white' onClick={handleOpenModal}>Eliminar Robot</button>
-                <button className='p-2 rounded-r-lg bg-[#273B66] w-36 font-semibold text-white' onClick={()=> setOpenAlert(true)}>Guardar Cambios</button>
+                <button 
+                    className={`${deleteDisabled ? 'bg-gray-600' : 'bg-red-600'} p-2 rounded-l-lg w-36 font-semibold text-white`}
+                    onClick={handleOpenModal} 
+                    disabled={deleteDisabled}>
+                        Eliminar Robot
+                </button>
+                <button 
+                    className={`${disabled ? 'bg-gray-400' : 'bg-[#273B66]'} p-2 rounded-r-lg w-36 font-semibold text-white`}
+                    onClick={onSave} 
+                    disabled={disabled}>
+                        Guardar Cambios
+                </button>
             </div>
             
             <Modal
@@ -96,10 +150,10 @@ function EditRobotForm({selectedBot}) {
             >
                 <Fade in={openModal}>
                     <Box sx={style}>
-                        <h3>¿Esta seguro que quiere eliminar el Robot: {selectedBot}?</h3>
+                        <h3>¿Esta seguro que quiere eliminar el Robot: {selectedBot.name}?</h3>
                         <div className='flex flex-row justify-end mt-2'>
-                            <button className='p-2 rounded bg-gray-200' onClick={()=> setOpenModal(false)}>Cancelar</button>
-                            <button className='p-2 rounded bg-red-600 text-white ml-2'>Eliminar</button>
+                            <button className='p-2 rounded bg-gray-200' onClick={handleCloseModal}>Cancelar</button>
+                            <button className='p-2 rounded bg-red-600 text-white ml-2' onClick={onDelete}>Eliminar</button>
                         </div>
                     </Box>
                 </Fade>

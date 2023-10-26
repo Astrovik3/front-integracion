@@ -4,15 +4,15 @@ import React from 'react'
 import EditRobotForm from './EditRobotForm';
 import CreateRobotForm from './CreateRobotForm';
 
-function RobotFormSelector({editMode, selectedBot}) {
+function RobotFormSelector({editMode, setMode, selectedBot, setSelectedBot, handleCont}) {
 
     return (
         <>
             {editMode && 
-            <EditRobotForm selectedBot={selectedBot}/>
+            <EditRobotForm selectedBot={selectedBot} setSelectedBot={setSelectedBot} handleCont={handleCont}/>
             }
             {!editMode &&
-            <CreateRobotForm/>
+            <CreateRobotForm handleCont={handleCont} setMode={setMode}/>
             }
         </>
     )
