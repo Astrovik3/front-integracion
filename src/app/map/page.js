@@ -26,6 +26,7 @@ export default function Map() {
   ];
 
   const [data, setData] = useState([]);
+  const [searchRobot, setSearchRobot] = useState({id: '', name: ''})
 
   useEffect(() => {
     const findData = async () => {
@@ -43,34 +44,24 @@ export default function Map() {
     }
   }, []);
 
-  const setStatusBgColor = (robotStatus) => {
-    let color;
-    if(robotStatus == "RETURNING"){
-      color = "lightblue";
-    }else if(robotStatus == "BUSY"){
-      color = "orange";
-    }else{
-      color = "#66ff00";
-    }
-    return color;
+  const setStatusBgColor = (robot) => {
+    if(robot.id === searchRobot.id || robot.name === searchRobot.name) return 'red';
+    if(robot.robotStatus == "RETURNING") return "lightblue";
+    if(robot.robotStatus == "BUSY") return "orange";
+    return "#66ff00";
   };
-  const setStatusShadowColor = (robotStatus) => {
-    let shadow;
-    if(robotStatus == "RETURNING"){
-      shadow = "0 0 5px blue, 0 0 10px blue, 0 0 20px blue";
-    }else if(robotStatus == "BUSY"){
-      shadow = "0 0 5px yellow, 0 0 10px yellow, 0 0 20px yellow";
-    }else{
-      shadow = "0 0 5px green, 0 0 10px green, 0 0 20px green";
-    }
-    return shadow;
+
+  const setStatusShadowColor = (robot) => {
+    if(robot.robotStatus == "RETURNING") return "0 0 5px blue, 0 0 10px blue, 0 0 20px blue";
+    if(robot.robotStatus == "BUSY") return "0 0 5px yellow, 0 0 10px yellow, 0 0 20px yellow";
+    return "0 0 5px green, 0 0 10px green, 0 0 20px green";
   };
 
   return (
     <div className="flex w-full h-5/6">
       <div className="w-1/3 h-full mt-8 mx-5">
         <div className="h-full">
-          <SearchRobot></SearchRobot>
+          <SearchRobot searchRobot={searchRobot} setSearchRobot={setSearchRobot}/>
         </div>
       </div>
       <div className="flex relative h-full w-2/3 mt-8 mr-5 justify-center">
@@ -90,9 +81,9 @@ export default function Map() {
               divObjeto.style.top = Math.abs(robot.y) * 2.1 + 'px'; //+ 2
               divObjeto.style.width = '7px';
               divObjeto.style.height = '7px';
-              divObjeto.style.background = setStatusBgColor(robot.robotStatus);
+              divObjeto.style.background = setStatusBgColor(robot);
               divObjeto.style.borderRadius = '50%';
-              divObjeto.style.boxShadow = setStatusShadowColor(robot.robotStatus);
+              divObjeto.style.boxShadow = setStatusShadowColor(robot);
               const contenedor = document.getElementById('contenedor');
               contenedor.appendChild(divObjeto);
             })
