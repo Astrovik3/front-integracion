@@ -35,7 +35,6 @@ export default function Map() {
   }, []);
 
   //Luego soluciono el tema del document undefined...
-  const contenedor = document.getElementById('contenedor');
 
   return (
     <div className="flex w-full h-5/6">
@@ -58,10 +57,12 @@ export default function Map() {
             divObjeto.style.position = 'absolute';
             divObjeto.style.left = robot.x * 2.1 + 'px';
             divObjeto.style.top = Math.abs(robot.y) * 2.1 + 'px';
-            divObjeto.style.width = '8px';
-            divObjeto.style.height = '8px';
-            divObjeto.style.background = 'red';
+            divObjeto.style.width = '7px';
+            divObjeto.style.height = '7px';
+            divObjeto.style.background = 'orange';
             divObjeto.style.borderRadius = '50%';
+            divObjeto.style.boxShadow = '0 0 5px yellow, 0 0 10px yellow, 0 0 15px yellow, 0 0 20px yellow, 0 0 25px yellow';
+            const contenedor = document.getElementById('contenedor');
             contenedor.appendChild(divObjeto);
           })
           }
