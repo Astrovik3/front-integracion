@@ -11,7 +11,7 @@ export default function RobotsPage() {
     const [robots, setRobots] = useState([]);
     const [editMode, setMode] = useState(true);
     const [selectedBot, setSelectedBot] = useState(
-            {id: '', name: '', type: '', velocity: null, battery: ''}
+            {id: '', name: '', type: '', velocity: null, battery: null, batteryConsumption: null}
         );
     const [searchedRobots, setSearchedRobots] = useState([]);
 
