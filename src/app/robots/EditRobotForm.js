@@ -5,11 +5,13 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import { deleteRobot, updateRobot } from '../networking/endpoints/robots';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
 
@@ -18,21 +20,28 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
     const handleCloseModal = () => setOpenModal(false);
     const [openAlert, setOpenAlert] = useState(false);
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
+    };
+
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [type, setType] = useState('');
 
-    const [battery, setBattery] = useState(null);
+    const [battery, setBattery] = useState(undefined);
     const handleBattery = (value) =>{
         setBattery(value < 0 ? 0 : (value > 1 ? 1 : parseFloat(value)));
     };
 
-    const [batteryConsumption, setConsumption] = useState(null); 
+    const [batteryConsumption, setConsumption] = useState(undefined); 
     const handleConsumption = (value) =>{
         setConsumption(value < 0 ? 0 : (value > 1 ? 1 : parseFloat(value)));
     };
 
-    const [velocity, setVelocity] = useState(null);
+    const [velocity, setVelocity] = useState(undefined);
 
     const [disabled, setDisabled] = useState(true);
     const [deleteDisabled, setDeleteDisabled] = useState(false);
@@ -82,7 +91,8 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             .then(res=> {
                 setOpenAlert(true)
                 handleCont();
-            });
+            })
+            .finally(()=> setDeleteDisabled(false));
     }
 
     const onDelete = () => {
@@ -92,32 +102,13 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             .then(res => {
                 handleCloseModal();
                 handleCont();
-                setSelectedBot({id: '', name: '', type: '', velocity: null, battery: null, batteryConsumption: null});
+                setSelectedBot({id: '', name: '', type: '', velocity: undefined, battery: undefined, batteryConsumption: undefined});
             });
     }
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-4/12'>
             <h2 className='text-center'>Editar Robot</h2>
-            
-            <Collapse in={openAlert}>
-                <Alert
-                action={
-                    <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                        setOpenAlert(false);
-                    }}
-                    >
-                    <CloseIcon fontSize="inherit" />
-                    </IconButton>
-                }
-                >
-                ¡Cambios guardados con éxito!
-                </Alert>
-            </Collapse>
 
             <label className='block mb-3 font-[500]'>Id</label>
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='idRobot' value={id} disabled={true}/>
@@ -137,15 +128,15 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             <label className='block mb-3 font-[500]'>Velocity (m/s)</label>
             <input className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='velocityRobot' value={velocity} onChange={e=>{setVelocity(e.target.value)}}/>
             
-            <div className='flex flex-row justify-between'>
+            <div className='flex flex-row justify-between space-x-3'>
                 <button 
-                    className={`${deleteDisabled ? 'bg-gray-600' : 'bg-red-600'} p-2 rounded-l-lg w-36 font-semibold text-white`}
+                    className={`${deleteDisabled ? 'bg-gray-600' : 'bg-red-600'} p-2 rounded-l-lg flex w-full justify-center font-semibold text-white`}
                     onClick={handleOpenModal} 
                     disabled={deleteDisabled}>
                         Eliminar Robot
                 </button>
                 <button 
-                    className={`${disabled ? 'bg-gray-400' : 'bg-[#273B66]'} p-2 rounded-r-lg w-36 font-semibold text-white`}
+                    className={`${disabled ? 'bg-gray-400' : 'bg-[#273B66]'} p-2 rounded-r-lg flex w-full justify-center font-semibold text-white`}
                     onClick={onSave} 
                     disabled={disabled}>
                         Guardar Cambios
@@ -173,6 +164,12 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
                     </Box>
                 </Fade>
             </Modal>
+
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    ¡Cambios guardados con éxito!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

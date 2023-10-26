@@ -1,30 +1,39 @@
 'use client'
 
 import React, {useState, useEffect} from 'react'
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
+import Snackbar from '@mui/material/Snackbar';
 import { postRobot } from '../networking/endpoints/robots';
+import MuiAlert from '@mui/material/Alert';
 
-function CreateRobotForm({handleCont, setMode}) {
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+function CreateRobotForm({handleCont}) {
 
     const [openAlert, setOpenAlert] = useState(false);
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
+    };
 
     const [name, setName] = useState('');
     const [type, setType] = useState('');
 
-    const [battery, setBattery] = useState(null);
+    const [battery, setBattery] = useState(undefined);
     const handleBattery = (value) =>{
         setBattery(value < 0 ? 0 : (value > 1 ? 1 : parseFloat(value)));
     };
     
-    const [batteryConsumption, setConsumption] = useState(null); 
+    const [batteryConsumption, setConsumption] = useState(undefined); 
     const handleConsumption = (value) =>{
         setConsumption(value < 0 ? 0 : (value > 1 ? 1 : parseFloat(value)));
     };
 
-    const [velocity, setVelocity] = useState(null);
+    const [velocity, setVelocity] = useState(undefined);
 
     const [disabled, setDisabled] = useState(true);
 
@@ -46,7 +55,6 @@ function CreateRobotForm({handleCont, setMode}) {
                 console.log(res);
                 setOpenAlert(true);
                 handleCont();
-                setMode(true);
             });
     }
 
@@ -55,27 +63,8 @@ function CreateRobotForm({handleCont, setMode}) {
     },[name, type, battery, batteryConsumption, velocity]);
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-4/12'>
             <h2 className='text-center'>Crear Nuevo Robot</h2>
-            <Collapse in={openAlert}>
-                <Alert
-                action={
-                    <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="small"
-                        onClick={() => {
-                            setOpenAlert(false);
-                        }}
-                    >
-                    <CloseIcon fontSize="inherit" />
-                    </IconButton>
-                }
-                sx={{ mb: 2 }}
-                >
-                ¡Nuevo Robot creado con éxito!
-                </Alert>
-            </Collapse>
 
             <label className='block mb-3 font-[500]'>Name</label>
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='nameRobot' value={name} onChange={e=>{setName(e.target.value)}}/>
@@ -101,7 +90,11 @@ function CreateRobotForm({handleCont, setMode}) {
                 Crear Robot
             </button>
             </div>
-            
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    ¡Nuevo Robot creado con éxito!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

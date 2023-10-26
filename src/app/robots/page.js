@@ -11,7 +11,7 @@ export default function RobotsPage() {
     const [robots, setRobots] = useState([]);
     const [editMode, setMode] = useState(true);
     const [selectedBot, setSelectedBot] = useState(
-            {id: '', name: '', type: '', velocity: null, battery: null, batteryConsumption: null}
+            {id: '', name: '', type: '', velocity: undefined, battery: undefined, batteryConsumption: undefined}
         );
     const [searchedRobots, setSearchedRobots] = useState([]);
 
@@ -64,7 +64,6 @@ export default function RobotsPage() {
             <div className='flex w-full justify-center h-full items-center'>
                 <RobotFormSelector 
                     editMode={editMode} 
-                    setMode={setMode}
                     selectedBot={selectedBot}
                     setSelectedBot={setSelectedBot}
                     handleCont={handleCont}
