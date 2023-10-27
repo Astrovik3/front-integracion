@@ -10,7 +10,7 @@ function SearchRobot({setSearchRobot}) {
   const [name, setName ] = useState('');
 
   return (
-    <div className='w-full bg-[#273B66] h-full rounded pt-5'>
+    <div className='w-full bg-gray-600 h-full rounded pt-5'>
       <div className='flex flex-col justify-center content-center'>
         <h1 className='text-xl font-bold text-center text-white mt-5'>
           BUSCAR ROBOT
@@ -25,7 +25,7 @@ function SearchRobot({setSearchRobot}) {
           <input className='w-full h-8 mb-4 rounded outline outline-white p-2' id='outlined-basic' type='text' name='nameRobot' value={name} onChange={e=> setName(e.target.value)}/>
       
           <button 
-            className='bg-gray-400 p-2 rounded flex w-full justify-center font-semibold text-white mt-3'
+            className='bg-blue-600 hover:bg-blue-800 p-2 rounded flex w-full justify-center font-semibold text-white mt-3'
             onClick={()=> {setSearchRobot({id: id, name: name})}} >
               Buscar Robot
           </button>
