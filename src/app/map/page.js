@@ -61,7 +61,7 @@ export default function Map() {
     <div className="flex w-full h-5/6">
       <div className="w-1/3 h-full mt-8 mx-5">
         <div className="h-full">
-          <SearchRobot searchRobot={searchRobot} setSearchRobot={setSearchRobot}/>
+          <SearchRobot setSearchRobot={setSearchRobot}/>
         </div>
       </div>
       <div className="flex relative h-full w-2/3 mt-8 mr-5 justify-center">
