@@ -61,7 +61,7 @@ export default function RobotsPage() {
                     />
                 </div>
             </div>
-            <div className='flex w-full justify-center h-full items-center'>
+            <div className='flex w-full mt-5 justify-center h-full items-center'>
                 <RobotFormSelector 
                     editMode={editMode} 
                     selectedBot={selectedBot}

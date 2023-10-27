@@ -24,12 +24,12 @@ function HomeRobotInfo({setRobotSelected}) {
 
       <div className='bg-gray-300 mt-5 p-5'>
           <h1 className='text-center'>INFORMACIÓN ROBOT</h1>
-          <p>Id del robot: {setRobotSelected.id}</p>
-          <p>Nombre del robot: {setRobotSelected.name}</p>
-          <p>Estado del robot: {setRobotSelected.robotStatus}</p>
+          <p>Id del robot: <b>{setRobotSelected.id}</b></p>
+          <p>Nombre del robot: <b>{setRobotSelected.name}</b></p>
+          <p>Estado del robot: <b>{setRobotSelected.robotStatus}</b></p>
 
-          <p>Velocidad del robot: {setRobotSelected.velocity} metros/segundo</p>
-          <p>Batería del robot: {setRobotSelected.battery}</p>
+          <p>Velocidad del robot: <b>{setRobotSelected.velocity}</b> metros/segundo</p>
+          <p>Batería del robot: <b>{setRobotSelected.battery}</b></p>
       </div>
     </div>
   )
