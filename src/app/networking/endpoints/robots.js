@@ -37,11 +37,16 @@ export const postRobot = async function (robot) {
   .then(res=> res.json())
 }
 
-export const updateRobot = async function (robot) {
+export const updateRobot = async function (robot, prevStatus) {
+  const body = {
+    robot: robot,
+    user: 'Manny',
+    previousRobotStatus: prevStatus
+  }
   return await fetch(robotURL + `/${robot.id}`, {
     method: 'PATCH',
     mode: 'cors',
-    body: JSON.stringify(robot),
+    body: JSON.stringify(body),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

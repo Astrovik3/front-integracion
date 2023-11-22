@@ -43,7 +43,8 @@ function CreateRobotForm({handleCont}) {
             type: type,
             battery: battery,
             batteryConsumption: batteryConsumption,
-            velocity: velocity
+            velocity: velocity,
+            robotStatus: 'AVAILABLE'
         };
     }
 

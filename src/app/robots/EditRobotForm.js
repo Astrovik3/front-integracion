@@ -42,6 +42,7 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
     };
 
     const [velocity, setVelocity] = useState(undefined);
+    const [robotStatus, setStatus] = useState('');
 
     const [disabled, setDisabled] = useState(true);
     const [deleteDisabled, setDeleteDisabled] = useState(false);
@@ -65,12 +66,13 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
         setBattery(parseFloat(selectedBot.battery));
         setConsumption(parseFloat(selectedBot.batteryConsumption));
         setVelocity(selectedBot.velocity);
+        setStatus(selectedBot.robotStatus);
     },[selectedBot]);
 
     useEffect(() => {
-        setDisabled(selectedBot.id === '' || (name === selectedBot.name && type === selectedBot.type && battery === selectedBot.battery && batteryConsumption === selectedBot.batteryConsumption && velocity === selectedBot.velocity));
+        setDisabled(selectedBot.id === '' || (name === selectedBot.name && type === selectedBot.type && battery === selectedBot.battery && batteryConsumption === selectedBot.batteryConsumption && velocity === selectedBot.velocity && robotStatus === selectedBot.robotStatus));
         setDeleteDisabled(selectedBot.id === '')
-    },[name, type, battery, batteryConsumption, velocity]);
+    },[name, type, battery, batteryConsumption, velocity, robotStatus]);
 
     function getRobot() {
         return {
@@ -79,7 +81,8 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             type: type,
             battery: battery,
             batteryConsumption: batteryConsumption,
-            velocity: velocity
+            velocity: velocity,
+            robotStatus: robotStatus
         };
     }
 
@@ -87,7 +90,7 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
         setDisabled(true);
         setDeleteDisabled(true);
         const robot = getRobot();
-        updateRobot(robot)
+        updateRobot(robot, selectedBot.robotStatus)
             .then(res=> {
                 setOpenAlert(true)
                 handleCont();
@@ -102,9 +105,15 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             .then(res => {
                 handleCloseModal();
                 handleCont();
-                setSelectedBot({id: '', name: '', type: '', velocity: undefined, battery: undefined, batteryConsumption: undefined});
+                setSelectedBot({id: '', name: '', type: '', velocity: undefined, battery: undefined, batteryConsumption: undefined, robotStatus: ''});
             });
     }
+
+    const posibleStatus = [
+        'AVAILABLE',
+        'BROKEN',
+        '...'
+    ]
 
     return (
         <div className='flex flex-col w-4/12'>
@@ -128,6 +137,15 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             <label className='block mb-3 font-[500]'>Velocity (m/s)</label>
             <input className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='velocityRobot' value={velocity} onChange={e=>{setVelocity(e.target.value)}}/>
             
+            <label className='block mb-3 font-[500]'>Velocity (m/s)</label>
+            <select className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' name='statusRobot'
+            onSelect={e=> setStatus(e.target.value)}
+            > 
+                { posibleStatus.forEach(elm => {
+                    <option value= {elm}>{elm}</option>
+                })}
+            </select>
+
             <div className='flex flex-row justify-between space-x-3'>
                 <button 
                     className={`${deleteDisabled ? 'bg-gray-600' : 'bg-red-600'} p-2 rounded-l-lg flex w-full justify-center font-semibold text-white`}
