@@ -8,6 +8,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { deleteRobot, updateRobot } from '../networking/endpoints/robots';
+import RobotFormSelector from './RobotFormSelector';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -120,8 +121,10 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='nameRobot' value={name} onChange={e=>{setName(e.target.value)}}/>
 
             <label className='block mb-3 font-[500]'>Robot Status</label>
-            <select className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' name='statusRobot'
+            <select className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' 
+                name='statusRobot'
                 onChange={e=> setStatus(e.target.value)}
+                value={robotStatus}
             > 
                 <option value= 'AVAILABLE' className='h-8'>AVAILABLE</option>
                 <option value= 'LOW_BATTERY' className='h-8'>LOW BATTERY</option>
