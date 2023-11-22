@@ -37,11 +37,10 @@ export const postRobot = async function (robot) {
   .then(res=> res.json())
 }
 
-export const updateRobot = async function (robot, prevStatus) {
+export const updateRobot = async function (robot) {
   const body = {
     robot: robot,
-    user: 'Manny',
-    previousRobotStatus: prevStatus
+    user: 'Manny'
   }
   return await fetch(robotURL + `/${robot.id}`, {
     method: 'PATCH',

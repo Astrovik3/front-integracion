@@ -90,7 +90,7 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
         setDisabled(true);
         setDeleteDisabled(true);
         const robot = getRobot();
-        updateRobot(robot, selectedBot.robotStatus)
+        updateRobot(robot)
             .then(res=> {
                 setOpenAlert(true)
                 handleCont();
@@ -109,12 +109,6 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             });
     }
 
-    const posibleStatus = [
-        'AVAILABLE',
-        'BROKEN',
-        '...'
-    ]
-
     return (
         <div className='flex flex-col w-4/12'>
             <h2 className='text-center'>Editar Robot</h2>
@@ -124,6 +118,15 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
 
             <label className='block mb-3 font-[500]'>Name</label>
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='nameRobot' value={name} onChange={e=>{setName(e.target.value)}}/>
+
+            <label className='block mb-3 font-[500]'>Robot Status</label>
+            <select className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' name='statusRobot'
+                onChange={e=> setStatus(e.target.value)}
+            > 
+                <option value= 'AVAILABLE' className='h-8'>AVAILABLE</option>
+                <option value= 'LOW_BATTERY' className='h-8'>LOW BATTERY</option>
+                <option value= 'BROKEN' className='h-8'>BROKEN</option>
+            </select>
 
             <label className='block mb-3 font-[500]'>Type</label>
             <input className='w-full h-8 mb-4 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='text' name='typeRobot' value={type} onChange={e=>{setType(e.target.value)}}/>
@@ -137,15 +140,6 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
             <label className='block mb-3 font-[500]'>Velocity (m/s)</label>
             <input className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' type='number' name='velocityRobot' value={velocity} onChange={e=>{setVelocity(e.target.value)}}/>
             
-            <label className='block mb-3 font-[500]'>Velocity (m/s)</label>
-            <select className='w-full h-8 mb-6 rounded outline outline-[1px] outline-gray-400 outline-offset-4 p-2' name='statusRobot'
-            onSelect={e=> setStatus(e.target.value)}
-            > 
-                { posibleStatus.forEach(elm => {
-                    <option value= {elm}>{elm}</option>
-                })}
-            </select>
-
             <div className='flex flex-row justify-between space-x-3'>
                 <button 
                     className={`${deleteDisabled ? 'bg-gray-600' : 'bg-red-600'} p-2 rounded-l-lg flex w-full justify-center font-semibold text-white`}
