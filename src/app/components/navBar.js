@@ -10,7 +10,7 @@ export default function NavBar() {
           <div id="navbar-default">
             <ul className="font-medium flex pl-8 rounded-lg flex-row pr-4">
               <Link href="#" className="block text-white rounded dark:text-white">
-                ADMIN
+                MANNY
               </Link>
             </ul>
           </div>
