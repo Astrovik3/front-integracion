@@ -69,3 +69,16 @@ export const deleteRobot = async function (robot) {
   })
   .then(res=> res.json())
 }
+
+export const loginCall = async function (email) {
+  return await fetch('http://abmpersonalinternoapi.deliver.ar/api/LoginQr?uid=' + `${email}`, {
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Origin': 'http://localhost:3000',
+      'Access-Control-Allow-Origin': 'https://localhost:3000',
+    },
+  })
+  .then(res=> res.json())
+}
