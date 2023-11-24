@@ -31,8 +31,8 @@ function EditRobotForm({selectedBot, setSelectedBot, handleCont}) {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [type, setType] = useState('');
-
     const [battery, setBattery] = useState(undefined);
+    
     const handleBattery = (value) =>{
         setBattery(value < 0 ? 0 : (value > 1 ? 1 : parseFloat(value)));
     };
