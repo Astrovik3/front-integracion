@@ -6,27 +6,16 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { getAllRobots } from "../networking/endpoints/robots";
+import NavBar from "../components/navBar";
 
 export default function Home() {
-  /*const [rowData] = useState([
-    { id: "Toyota", name: "Robot 1", velocity: 35000, status: "blabla", battery: 123 },
-    { id: "Ford", name: "Robot 2", velocity: 32000, status: "blabla", battery: 123 },
-    { id: "Porsche", name: "Robot 3", velocity: 72000, status: "blabla", battery: 123 },
-    { id: "Ford", name: "Robot 4", velocity: 32000, status: "blabla", battery: 123 },
-    { id: "Porsche", name: "Robot 5", velocity: 72000, status: "blabla", battery: 123 },
-    { id: "Ford", name: "Robot 6", velocity: 32000, status: "blabla", battery: 123 },
-    { id: "Porsche", name: "Robot 7", velocity: 72000, status: "blabla", battery: 123 },
-    { id: "Ford", name: "Robot 8", velocity: 32000, status: "blabla", battery: 123 },
-    { id: "Porsche", name: "Robot 9", velocity: 72000, status: "blabla", battery: 123 },
-    { id: "Ford", name: "Robot 10", velocity: 32000, status: "blabla", battery: 123 }
-  ]);*/
-
   const [columnDefs] = useState([
     { field: "id" },
     { field: "name" },
     { field: "velocity" },
     { field: "robotStatus" },
-    { field: "battery" }
+    { field: "battery" },
+    { field: "type" }
   ]);
 
   const [data, setData] = useState();
@@ -44,21 +33,25 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex w-full h-5/6">
-      <div className="w-3/5 mt-8 mx-5">
-        <h2>ROBOTS</h2>
-        <div className="ag-theme-alpine h-5/6 mt-3">
-          <AgGridReact
-            rowData={data}
-            columnDefs={columnDefs}
-            rowSelection="multiple"
-            onSelectionChanged={onSelection}
-          ></AgGridReact>
+    <>
+      <NavBar />
+      <div className="flex w-full h-5/6">
+        <div className="w-3/5 mt-8 mx-5">
+          <h2>ROBOTS</h2>
+          <div className="ag-theme-alpine h-5/6 mt-3">
+            <AgGridReact
+              rowData={data}
+              columnDefs={columnDefs}
+              rowSelection="multiple"
+              onSelectionChanged={onSelection}
+            ></AgGridReact>
+          </div>
+        </div>
+        <div className="flex justify-end w-2/5">
+          <HomeRobotInfo setRobotSelected={robotSelected} />
         </div>
       </div>
-      <div className="flex justify-end w-2/5">
-        <HomeRobotInfo setRobotSelected={robotSelected} />
-      </div>
-    </div>
+
+    </>
   )
 }

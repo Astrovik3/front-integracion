@@ -30,6 +30,7 @@ function HomeRobotInfo({setRobotSelected}) {
 
           <p>Velocidad del robot: <b>{setRobotSelected.velocity}</b> metros/segundo</p>
           <p>Batería del robot: <b>{setRobotSelected.battery}</b></p>
+          <p>Tipo del robot: <b>{setRobotSelected.type}</b></p>
       </div>
     </div>
   )
