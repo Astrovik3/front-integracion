@@ -32,8 +32,10 @@ export default function App() {
 
   const redirectTimeoutId = () => {
     loginCall(email)
+      .catch(res=> {console.log('camino triste')})
       .then(res=> {
-        if (email == "manny@manny.com.ar" || "manny@manny.com") {
+        console.log('camino feliz')
+        if (email == "manny@manny.com.ar" || email == "manny@manny.com") {
           setMsgAlert("Bienvenido Manny!");
           setOpenAlert(true);
           setTimeout(() => {
@@ -45,18 +47,6 @@ export default function App() {
           setOpenAlert(true);
         }
       })
-      .catch(res=> {
-        if (email == "manny@manny.com.ar" || "manny@manny.com") {
-          setMsgAlert("Bienvenido Manny!");
-          setOpenAlert(true);
-          setTimeout(() => {
-            router.push('/home');
-          }, 2000);
-        } else {
-          setMsgSeverity("error");
-          setMsgAlert("Usuario no válido.");
-          setOpenAlert(true);
-        }})
   };
 
   return (
